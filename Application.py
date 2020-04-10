@@ -1,7 +1,8 @@
 import sys
 # pyuic5 AddMusic.ui -o AddMusic.py
+from PyQt5.QtCore import QSize
 from PyQt5.QtWidgets import *
-from PyQt5.QtGui import QIcon
+from PyQt5.QtGui import *
 from PyQt5 import QtWidgets
 from AddMusic import AddMusic
 from Table import Table
@@ -23,7 +24,7 @@ class Application(QtWidgets.QMainWindow):
         self.buttonMusicList = QPushButton("Список музыки", self)
         self.buttonMusicList.setGeometry(75, 250, 250, 150)
         self.buttonMusicList.clicked.connect(self.buttonClickedListMusic)
-
+        self.setStyleSheet("11.png")
         font = QtGui.QFont()
         font.setPointSize(20)
         self.buttonAddMusic.setFont(font)
@@ -40,7 +41,10 @@ class Application(QtWidgets.QMainWindow):
 
 
 if __name__ == '__main__':
-    app = QApplication(sys.argv)
+    app = QApplication([])
+    s = QStyleFactory.create('Fusion')
+    app.setStyle(s)
     ex = Application()
+
     ex.show()
     sys.exit(app.exec_())
