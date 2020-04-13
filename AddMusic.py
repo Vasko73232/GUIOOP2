@@ -1,9 +1,18 @@
+# -*- coding: utf-8 -*-
+
+# Form implementation generated from reading ui file 'AddMusic.ui'
+#
+# Created by: PyQt5 UI code generator 5.13.2
+#
+# WARNING! All changes made in this file will be lost!
+
+from db_album import *
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import *
 from PyQt5.QtGui import QIcon
 from PyQt5 import QtWidgets, uic
 import shutil
-import os
+
 
 class Ui_Dialog(object):
     def setupUi(self, Dialog):
@@ -65,10 +74,8 @@ class Ui_Dialog(object):
         self.genreMusic.addItem("Поп")
         self.genreMusic.addItem("Народная песня")
 
-        self.albumNameMusic = QtWidgets.QLineEdit(Dialog)
-        self.albumNameMusic.setGeometry(QtCore.QRect(130, 220, 113, 20))
-        self.albumNameMusic.setObjectName("albumNameMusic")
-        self.authorMusic = QtWidgets.QLineEdit(Dialog)
+
+        self.authorMusic = QtWidgets.QComboBox(Dialog)
         self.authorMusic.setGeometry(QtCore.QRect(20, 100, 261, 20))
         self.authorMusic.setObjectName("authorMusic")
         self.yearMusic = QtWidgets.QComboBox(Dialog)
@@ -93,9 +100,9 @@ class Ui_Dialog(object):
         self.albumchooseMusic.setGeometry(QtCore.QRect(20, 220, 100, 20))
         self.albumchooseMusic.setObjectName("albomchooseMusic")
         self.albumchooseMusic.addItem("")
-        listAlbum = os.listdir("E:\\")  # !!!Папки с альбомами
-        for i in listAlbum:
-            self.albumchooseMusic.addItem(str(i))
+
+
+        self.albumchooseMusic.addItem(str(5))
         self.retranslateUi(Dialog)
         QtCore.QMetaObject.connectSlotsByName(Dialog)
 
@@ -106,13 +113,14 @@ class Ui_Dialog(object):
         self.label_2.setText(_translate("Dialog", "Автор"))
         self.buttonChooseFileMusic.setText(_translate("Dialog", "Обзор файла"))
         self.label_4.setText(_translate("Dialog", "Год создания"))
-        self.label_5.setText(_translate("Dialog", "Выбрать или создать альбом"))
+        self.label_5.setText(_translate("Dialog", "Выбрать альбом"))
         self.label.setText(_translate("Dialog", "Название музыки"))
         self.buttonAddMusic.setText(_translate("Dialog", "Загрузить музыку"))
         self.label_6.setText(_translate("Dialog", "Выберите файл"))
 
 
 class AddMusic(QDialog, Ui_Dialog):
+
     def saveMusic(self):
         self.fileMusic = QFileDialog().getOpenFileName(self, filter="*.mp3 *.mp4 *.ac3 *.wma *.wav *.mid ")
         if (self.fileMusic != ''):
@@ -126,11 +134,14 @@ class AddMusic(QDialog, Ui_Dialog):
         self.album_NameMusicText = self.albumchooseMusic.currentText()
         if (self.album_NameMusicText == ''):
             self.album_NameMusicText = self.albumNameMusic.text()
+
         if (self.name_MusicText != '' and self.author_MusicText != '' and self.genre_MusicText != '' and self.album_NameMusicText != ''):  # Если все заполненно закрыть
             self.infoMusic = True
         if (self.infoMusic == True and self.saveMus == True):
             shutil.copy(str(self.fileMusic[0]),
-                        "E:\\" + self.album_NameMusicText)  # !!!Указать путь к каталогу с альбомами
+                        "E:\\" + self.album_NameMusicText)  # редать название файла музыки!!!Указать путь к каталогу с альбомами
+
+
             self.close()
 
     def __init__(self, mainwindow):
@@ -144,3 +155,4 @@ class AddMusic(QDialog, Ui_Dialog):
 
         self.buttonAddMusic.clicked.connect(self.informationMusic)
         self.buttonChooseFileMusic.clicked.connect(self.saveMusic)
+
