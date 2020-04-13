@@ -155,4 +155,3 @@ class AddMusic(QDialog, Ui_Dialog):
 
         self.buttonAddMusic.clicked.connect(self.informationMusic)
         self.buttonChooseFileMusic.clicked.connect(self.saveMusic)
-
