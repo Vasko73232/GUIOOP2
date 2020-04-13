@@ -59,7 +59,8 @@ class Application(QtWidgets.QMainWindow):
     def buttonClickedListMusic(self):
         table = Table(self)
         table.show()
-        table.exec()
+        table.resize(800, 600)
+
 
     def buttonClickedAddAuthor(self):
         table = AddAuthor(self)
