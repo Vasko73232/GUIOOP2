@@ -41,7 +41,7 @@ class Application(QtWidgets.QMainWindow):
         self.buttonAddGenre.setGeometry(275, 325, 100, 100)
         self.buttonAddGenre.clicked.connect(self.buttonClickedAddGenre)
 
-        self.setStyleSheet("11.png")
+
         font = QtGui.QFont()
         font.setPointSize(20)
         font1 = QtGui.QFont()

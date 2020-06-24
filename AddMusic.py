@@ -3,7 +3,7 @@ from PyQt5.QtWidgets import *
 from PyQt5.QtGui import QIcon
 from PyQt5 import QtWidgets, uic
 import shutil
-
+from os import path
 
 class Ui_Dialog(object):
     def setupUi(self, Dialog):
@@ -69,6 +69,8 @@ class Ui_Dialog(object):
         self.authorMusic = QtWidgets.QComboBox(Dialog)
         self.authorMusic.setGeometry(QtCore.QRect(20, 100, 261, 20))
         self.authorMusic.setObjectName("authorMusic")
+        self.authorMusic.addItem("dd")
+
         self.yearMusic = QtWidgets.QComboBox(Dialog)
         self.yearMusic.setGeometry(QtCore.QRect(130, 160, 100, 20))
         self.yearMusic.setObjectName("yearMusic")
@@ -93,7 +95,7 @@ class Ui_Dialog(object):
         self.albumchooseMusic.addItem("")
 
 
-        self.albumchooseMusic.addItem(str(5))
+        self.albumchooseMusic.addItem("Music")#Брать из сервера
         self.retranslateUi(Dialog)
         QtCore.QMetaObject.connectSlotsByName(Dialog)
 
@@ -119,7 +121,7 @@ class AddMusic(QDialog, Ui_Dialog):
 
     def informationMusic(self):
         self.name_MusicText = self.nameMusic.text()
-        self.author_MusicText = self.authorMusic.text()
+        self.author_MusicText = self.authorMusic.currentText()
         self.genre_MusicText = self.genreMusic.currentText()
         self.year_MusicText = self.yearMusic.currentText()
         self.album_NameMusicText = self.albumchooseMusic.currentText()
@@ -130,9 +132,12 @@ class AddMusic(QDialog, Ui_Dialog):
             self.infoMusic = True
         if (self.infoMusic == True and self.saveMus == True):
             shutil.copy(str(self.fileMusic[0]),
-                        "E:\\" + self.album_NameMusicText)  # редать название файла музыки!!!Указать путь к каталогу с альбомами
+                        "C:\\" + self.album_NameMusicText)  # Передать название файла музыки!!!Указать путь к каталогу с альбомами
+            name = path.basename(self.fileMusic[0])
+            nameExpansion = path.splitext(name)[1]
 
 
+            shutil.move("C:\\"+self.album_NameMusicText+'\\'+name,"C:\\"+self.album_NameMusicText+'\\'+self.name_MusicText+nameExpansion)
             self.close()
 
     def __init__(self, mainwindow):
